@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 
 function App() {
     const [yearsLinkList, setYearsLinkList] = useState();
-    const [yearAward, setYearAward] = useState("2021 AWARDS");
+    const [yearAward, setYearAward] = useState({
+        title: "2021 AWARDS",
+        link: "",
+    });
     // const [backendData, setBackendData] = useState();
 
     useEffect(() => {
@@ -14,19 +17,26 @@ function App() {
     }, []);
 
     const handleYears = async (e) => {
-        console.log("e", e);
-        const yearChoice = setYearAward(e.target.textContent);
-
-        console.log("year", e.target.textContent);
+        const yearTolist = { title: e.target.id, link: e.target.textContent };
+        setYearAward(yearTolist);
+        await console.log("yearTolist", yearTolist);
+        // fetch(`/year-award/${link}`).catch((err) => console.log(err));
+        fetch("/year-award", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(yearTolist),
+        });
     };
     return (
         <div>
-            <h3>This is the {yearAward} genres book list</h3>
             <h6>if you like you can choose another year</h6>
             {yearsLinkList &&
                 yearsLinkList.map((year, i) => (
                     <h6
                         value={year.title}
+                        key={year.title}
                         id={year.link}
                         onClick={(e) => {
                             handleYears(e);
@@ -35,7 +45,7 @@ function App() {
                         {year.title}
                     </h6>
                 ))}
-            <button> </button>
+            <h3>This is the {yearAward.title} genres book list</h3>
         </div>
     );
 }

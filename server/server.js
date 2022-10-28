@@ -18,8 +18,11 @@ app.get("/years-list", async (req, res) => {
             }));
         }
     );
-
     res.json(yearsList);
+});
+
+app.post("/year-award", async (req) => {
+    console.log(req);
 });
 
 app.listen(3001, () => {
