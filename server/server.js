@@ -1,11 +1,10 @@
 const express = require("express");
 const app = express();
-const PORT = 3001;
 
 app.get("/api", (req, res) => {
-    res.json({ message: "api connected" });
+    res.json({ users: ["user", "another user", "third user"] });
 });
 
-app.listen(PORT, () => {
-    console.log("server is running on port:", PORT);
+app.listen(3001, () => {
+    console.log("The server is listening");
 });
