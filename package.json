@@ -1,0 +1,27 @@
+{
+    "name": "00_random-book-amazon",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "server": "npm start --prefix server",
+        "client": "npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/matteobu/random-book-amazon.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/matteobu/random-book-amazon/issues"
+    },
+    "homepage": "https://github.com/matteobu/random-book-amazon#readme",
+    "dependencies": {
+        "concurrently": "^7.5.0",
+        "puppeteer": "^19.2.0"
+    }
+}
