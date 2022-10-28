@@ -21,7 +21,7 @@ function App() {
         setYearAward(yearTolist);
         await console.log("yearTolist", yearTolist);
         // fetch(`/year-award/${link}`).catch((err) => console.log(err));
-        fetch("/year-award", {
+        fetch("/award", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

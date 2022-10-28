@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 const { launch } = require("puppeteer");
 
 app.get("/api", async (req, res) => {
@@ -21,8 +22,8 @@ app.get("/years-list", async (req, res) => {
     res.json(yearsList);
 });
 
-app.post("/year-award", async (req) => {
-    console.log(req);
+app.post("/award", async (req) => {
+    console.log(req.body);
 });
 
 app.listen(3001, () => {
