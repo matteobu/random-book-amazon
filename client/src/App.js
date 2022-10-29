@@ -10,24 +10,28 @@ function App() {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch("/years-list");
-            const data = await res.json();
+            let res = await fetch("/years-list");
+            let data = await res.json();
+
             setYearsLinkList(data);
         })();
     }, []);
 
     const handleYears = async (e) => {
-        const yearTolist = { title: e.target.id, link: e.target.textContent };
+        const yearTolist = { link: e.target.id, title: e.target.textContent };
         setYearAward(yearTolist);
         await console.log("yearTolist", yearTolist);
         // fetch(`/year-award/${link}`).catch((err) => console.log(err));
-        fetch("/award", {
+        let res = fetch("/years-list", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(yearTolist),
         });
+        let data = await res.json();
+
+        setYearsLinkList(data);
     };
     return (
         <div>

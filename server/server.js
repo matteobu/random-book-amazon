@@ -1,15 +1,27 @@
 const express = require("express");
 const app = express();
-app.use(express.json());
 const { launch } = require("puppeteer");
+app.use(express.json());
 
-app.get("/api", async (req, res) => {
-    res.json({ users: ["user", "another user", "third user"] });
-});
+const yearChoiceAwards = "/choiceawards/best-books-2021";
+const yearListUrl = "https://www.goodreads.com" + yearChoiceAwards;
 app.get("/years-list", async (req, res) => {
+    let yearsListToDisplay = await gettinYearsList();
+    res.json(yearsListToDisplay);
+});
+
+app.post("/years-list", async (req) => {
+    yearChoiceAwards = req.body.link;
+    let yearsListToDisplay = await gettinYearsList(yearChoiceAwards);
+    console.log("yearsListToDisplay", yearsListToDisplay);
+    res.json(yearsListToDisplay);
+    console.log(req.body);
+});
+
+const gettinYearsList = async (year) => {
     const browser = await launch();
     const page = await browser.newPage();
-    await page.goto("https://www.goodreads.com/choiceawards/best-books-2021");
+    await page.goto(year || yearListUrl);
     const yearsList = await page.$$eval(
         "#previousYears > ul > li > a",
         (yearsList) => {
@@ -19,12 +31,8 @@ app.get("/years-list", async (req, res) => {
             }));
         }
     );
-    res.json(yearsList);
-});
-
-app.post("/award", async (req) => {
-    console.log(req.body);
-});
+    return yearsList;
+};
 
 app.listen(3001, () => {
     console.log("The server is listening");
