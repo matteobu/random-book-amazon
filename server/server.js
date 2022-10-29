@@ -3,25 +3,24 @@ const app = express();
 const { launch } = require("puppeteer");
 app.use(express.json());
 
-const yearChoiceAwards = "/choiceawards/best-books-2021";
-const yearListUrl = "https://www.goodreads.com" + yearChoiceAwards;
 app.get("/years-list", async (req, res) => {
-    let yearsListToDisplay = await gettinYearsList();
+    var yearChoiceAwards = "/choiceawards/best-books-2021";
+    var yearListUrl = "https://www.goodreads.com" + yearChoiceAwards;
+    let yearsListToDisplay = await gettinYearsList(yearListUrl);
     res.json(yearsListToDisplay);
 });
 
-app.post("/years-list", async (req) => {
+app.post("/years-list", async (req, res) => {
     yearChoiceAwards = req.body.link;
-    let yearsListToDisplay = await gettinYearsList(yearChoiceAwards);
-    console.log("yearsListToDisplay", yearsListToDisplay);
+    var yearListUrl = "https://www.goodreads.com" + yearChoiceAwards;
+    var yearsListToDisplay = await gettinYearsList(yearListUrl);
     res.json(yearsListToDisplay);
-    console.log(req.body);
 });
 
 const gettinYearsList = async (year) => {
     const browser = await launch();
     const page = await browser.newPage();
-    await page.goto(year || yearListUrl);
+    await page.goto(year);
     const yearsList = await page.$$eval(
         "#previousYears > ul > li > a",
         (yearsList) => {

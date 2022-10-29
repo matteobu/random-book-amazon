@@ -20,9 +20,7 @@ function App() {
     const handleYears = async (e) => {
         const yearTolist = { link: e.target.id, title: e.target.textContent };
         setYearAward(yearTolist);
-        await console.log("yearTolist", yearTolist);
-        // fetch(`/year-award/${link}`).catch((err) => console.log(err));
-        let res = fetch("/years-list", {
+        let res = await fetch("/years-list", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -30,7 +28,6 @@ function App() {
             body: JSON.stringify(yearTolist),
         });
         let data = await res.json();
-
         setYearsLinkList(data);
     };
     return (
