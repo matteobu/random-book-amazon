@@ -5,7 +5,7 @@ function App() {
     const [yearsLinkList, setYearsLinkList] = useState();
     const [yearAward, setYearAward] = useState({
         title: "2021 AWARDS",
-        link: "",
+        link: "/choiceawards/best-books-2021",
     });
     // const [backendData, setBackendData] = useState();
 
@@ -14,7 +14,13 @@ function App() {
             let res = await fetch("/years-list");
             let data = await res.json();
             setYearsLinkList(data);
-            await fetch("/genresData")
+            await fetch("/genresData", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(yearAward),
+            })
                 .then((response) => response.json())
                 .then((data) =>
                     // when the data are retrieved from the url, then I store them in using useState
