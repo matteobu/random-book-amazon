@@ -1,3 +1,4 @@
+
 const express = require("express");
 const app = express();
 const { launch } = require("puppeteer");
@@ -32,6 +33,38 @@ const gettinYearsList = async (year) => {
     );
     return yearsList;
 };
+app.get("/genresData", async function (req, res) {
+    // once I receive the user's request I retrieve the information from the website "goodreads.com/choiceawards/best-books-2020"
+    // console.log("yearListUrl", yearListUrl);
+    // const browser = await launch();
+    // const page = await browser.newPage();
+    // await page.goto(yearListUrl);
+    // const links = await page
+    //     .evaluate(() => {
+    //         // we retreive the info from a according to the class "category clearFix"
+    //         const genresNode = document.querySelectorAll(
+    //             ".category.clearFix a"
+    //         );
+    //         // here, after mapping into the array, I filter the hrefs that are in my interest
+    //         const hrefs = [...genresNode].map((n) => n.getAttribute("href"));
+    //         const hrefsFiltered = hrefs.filter((n) =>
+    //             n.includes("choiceawards")
+    //         );
+    //         // here I search again into the page, looking for the genres Title
+    //         const genres = document.querySelectorAll(".category.clearFix a h4");
+    //         const genresTitle = [...genres].map((n) => n.innerText);
+    //         // Then I create an Array with all the info, an array like this: [{title: fiction, link: www.example.com}]
+    //         const newArr2 = genresTitle.map((title, i) => ({
+    //             title,
+    //             link: hrefsFiltered[i],
+    //         }));
+    //         return newArr2;
+    //     })
+    //     .catch((err) => console.log("error in links = page.evaluate()", err));
+    // await browser.close();
+    // // i send back the info to app.js
+    // res.json(links);
+});
 
 app.listen(3001, () => {
     console.log("The server is listening");
