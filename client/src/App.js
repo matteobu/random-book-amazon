@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 function App() {
     const [genresInfo, setGenresInfo] = useState();
     const [yearsLinkList, setYearsLinkList] = useState();
+    const [lookingForBook, setLookingForBook] = useState(false);
     const [yearAward, setYearAward] = useState({
         title: "2021 AWARDS",
         link: "/choiceawards/best-books-2021",
@@ -45,10 +46,10 @@ function App() {
 
     const handleGenreRequest = async (e, link) => {
         console.log("handle Genre Request clicked");
-        // setLookingForBook(true);
-        // let linkNotChecked = link;
-        // const linkChecked = linkNotChecked.replace("/choiceawards/", "");
-        // fetch(`/randomBook/${linkChecked}`).catch((err) => console.log(err));
+        setLookingForBook(true);
+        let linkNotChecked = link;
+        const linkChecked = linkNotChecked.replace("/choiceawards/", "");
+        fetch(`/randomBook/${linkChecked}`).catch((err) => console.log(err));
     };
     return (
         <div>
